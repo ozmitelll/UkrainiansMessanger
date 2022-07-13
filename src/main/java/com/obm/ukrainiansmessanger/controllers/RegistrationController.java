@@ -25,8 +25,7 @@ public class RegistrationController {
            model.put("message", "Такий користувач вже існує");
            return "registration";
        }
-
-      userRepository.save(user);
+       userRepository.save(user);
         return "redirect:/login";
     }
 }
