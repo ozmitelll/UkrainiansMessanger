@@ -4,8 +4,10 @@ import com.obm.ukrainiansmessanger.models.User;
 import com.obm.ukrainiansmessanger.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
@@ -19,12 +21,13 @@ public class RegistrationController {
         return "registration";
     }
     @PostMapping("/registration")
-    public String addUser(User user, Map<String, Object> model){
+    public String addUser(@RequestParam String username,User user, Model model){
        User userFromDb = userRepository.findByUsername(user.getUsername());
        if(userFromDb != null){
-           model.put("message", "Такий користувач вже існує");
+           model.addAttribute("message", "Такий користувач вже існує");
            return "registration";
        }
+       user.setUsername(username);
        userRepository.save(user);
         return "redirect:/login";
     }
