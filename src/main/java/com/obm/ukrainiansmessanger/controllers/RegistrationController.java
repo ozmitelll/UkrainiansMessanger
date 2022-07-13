@@ -16,7 +16,7 @@ public class RegistrationController {
 
     @GetMapping("/registration")
     public String registration(){
-        return "registraion";
+        return "registration";
     }
     @PostMapping("/registration")
     public String addUser(User user, Map<String, Object> model){
@@ -25,6 +25,8 @@ public class RegistrationController {
            model.put("message", "Такий користувач вже існує");
            return "registration";
        }
+
+      userRepository.save(user);
         return "redirect:/login";
     }
 }
