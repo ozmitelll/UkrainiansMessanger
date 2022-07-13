@@ -1,5 +1,6 @@
 package com.obm.ukrainiansmessanger.controllers;
 
+import com.obm.ukrainiansmessanger.models.Role;
 import com.obm.ukrainiansmessanger.models.User;
 import com.obm.ukrainiansmessanger.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Collections;
 import java.util.Map;
 
 @Controller
@@ -28,6 +30,7 @@ public class RegistrationController {
            return "registration";
        }
        user.setUsername(username);
+       user.setRoles(Collections.singleton(Role.USER));
        userRepository.save(user);
         return "redirect:/login";
     }
